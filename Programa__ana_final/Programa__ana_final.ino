@@ -2,19 +2,24 @@
 #include "SoftwareSerial.h"
 #include "DFRobotDFPlayerMini.h"
 
+//INPUT
+//Botões das cores (Nº indica porta do arduino)
 int BW = 2;
 int BG = 3;
 int BR = 4;
 int BY = 5;
 int BB = 6;
+
+//OUTPUT
+//Luzes (Nº indica a porta)
 int ledB = 8;
 int ledY = 9;
 int ledR = 10;
 int ledG = 11;
 int ledW = 12;
 
-SoftwareSerial mySoftwareSerial(10, 11); // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
+SoftwareSerial mySoftwareSerial(7, 13); // RX, TX
 
 void setup() {
   // put your setup code here, to run once:
@@ -32,14 +37,12 @@ void setup() {
   pinMode(ledW, OUTPUT);
 
   if (!myDFPlayer.begin(mySoftwareSerial)) { // Use mySoftwareSerial to communicate with mp3.
-    Serial.println(F("Não foi possível começar:"));
-    Serial.println(F("1. Por favor, verifique a conexão!"));
-    Serial.println(F("2. Por favor, insira o cartão SD"));
-    while (true) {
-      delay(0);
-    }
+    Serial.println("Não foi possível começar:");
+    Serial.println("1. Por favor, verifique a conexão!");
+    Serial.println("2. Por favor, insira o cartão SD");
+  }else{
+    Serial.println("DF player está online!");
   }
-  Serial.println(F("DFPlayer mini online"));
 }
 
 void loop() {
@@ -47,7 +50,7 @@ void loop() {
   if (digitalRead(BW) == LOW) {
     digitalWrite(ledW, HIGH);
     Serial.println("BW");
-    myDFPlayer.play(1);
+    myDFPlayer.play("01.mp3");
     delay(8000);
     digitalWrite(ledW, LOW);
   }
@@ -55,8 +58,8 @@ void loop() {
 
   if (digitalRead(BG) == LOW) {
     digitalWrite(ledG, HIGH);
-    Serial.println("BW");
-    myDFPlayer.play(2);
+    Serial.println("BG");
+    myDFPlayer.play("02.mp3");
     delay(8000);
     digitalWrite(ledG, LOW);
   }
@@ -64,8 +67,8 @@ void loop() {
 
   if (digitalRead(BR) == LOW) {
     digitalWrite(ledR, HIGH);
-    Serial.println("BW");
-    myDFPlayer.play(3);
+    Serial.println("BR");
+    myDFPlayer.play("03.mp3");
     delay(8000);
     digitalWrite(ledR, LOW);
   }
@@ -73,8 +76,8 @@ void loop() {
 
   if (digitalRead(BY) == LOW) {
     digitalWrite(ledY, HIGH);
-    Serial.println("BW");
-    myDFPlayer.play(4);
+    Serial.println("BY");
+    myDFPlayer.play("04.mp3");
     delay(8000);
     digitalWrite(ledY, LOW);
   }
@@ -82,10 +85,9 @@ void loop() {
 
   if (digitalRead(BB) == LOW) {
     digitalWrite(ledB, HIGH);
-    Serial.println("BW");
-    myDFPlayer.play(5);
+    Serial.println("BB");
+    myDFPlayer.play("05.mp3");
     delay(8000);
     digitalWrite(ledB, LOW);
   }
 }
-
